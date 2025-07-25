@@ -1,4 +1,5 @@
 def format_indian_currency(number):
+    # Convert to string and split integer and decimal parts
     num_str = str(number)
     if '.' in num_str:
         integer_part, decimal_part = num_str.split('.')
@@ -22,4 +23,6 @@ def format_indian_currency(number):
 
     # Reverse again to get the final formatted string
     formatted = result[::-1] + decimal_part
-    return formatted
+    print(formatted)
+    
+format_indian_currency(1234567) 
