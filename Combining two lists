@@ -27,4 +27,18 @@ def merge_element_lists(list1, list2):
                 merged[-1] = combine_elements(last, elem)
             else:
                 merged.append(elem)
-    return merged
+    print(merged)
+    
+list1 = [
+    {"left": 0, "right": 10, "value": "Hello"},
+    {"left": 30, "right": 40, "value": "Bye"}
+]
+
+list2 = [
+    {"left": 6, "right": 14, "value": "World"},
+    {"left": 42, "right": 50, "value": "All"}
+]
+
+merge_element_lists(list1, list2)
+
+    
