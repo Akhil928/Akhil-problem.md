@@ -1,0 +1,35 @@
+import bisect
+
+def minimize_loss(prices):
+    n = len(prices)
+    min_loss = float('inf')
+    buy_year, sell_year = -1, -1
+
+    # Map price to its year (index)
+    price_to_year = {price: i for i, price in enumerate(prices)}
+    seen = []
+
+    for i in range(n - 1, -1, -1):  # from last year to first
+        price = prices[i]
+
+        # Insert in sorted order
+        idx = bisect.bisect_left(seen, price)
+
+        # If there's a smaller price seen so far (eligible sell price)
+        if idx > 0:
+            sell_price = seen[idx - 1]
+            loss = price - sell_price
+            if 0 < loss < min_loss:
+                min_loss = loss
+                buy_year = i
+                sell_year = price_to_year[sell_price]
+
+        bisect.insort(seen, price)
+
+    if buy_year == -1:
+        return "No valid loss transaction found."
+    return {
+        "buy_year": buy_year + 1,
+        "sell_year": sell_year + 1,
+        "loss": min_loss
+    }
