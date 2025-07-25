@@ -1,0 +1,25 @@
+def format_indian_currency(number):
+    num_str = str(number)
+    if '.' in num_str:
+        integer_part, decimal_part = num_str.split('.')
+        decimal_part = '.' + decimal_part
+    else:
+        integer_part = num_str
+        decimal_part = ''
+
+    # Reverse the integer part for easier processing
+    rev = integer_part[::-1]
+    result = ''
+
+    # First group: 3 digits
+    result += rev[:3]
+    rev = rev[3:]
+
+    # Remaining groups: 2 digits
+    while rev:
+        result += ',' + rev[:2]
+        rev = rev[2:]
+
+    # Reverse again to get the final formatted string
+    formatted = result[::-1] + decimal_part
+    return formatted
