@@ -1,0 +1,30 @@
+def get_overlap(a, b):
+    return max(0, min(a['right'], b['right']) - max(a['left'], b['left']))
+
+def is_mergeable(a, b):
+    overlap = get_overlap(a, b)
+    width_a = a['right'] - a['left']
+    width_b = b['right'] - b['left']
+    return overlap > 0.5 * width_a or overlap > 0.5 * width_b
+
+def combine_elements(a, b):
+    return {
+        "left": min(a['left'], b['left']),
+        "right": max(a['right'], b['right']),
+        "value": a['value'] + " " + b['value']
+    }
+
+def merge_element_lists(list1, list2):
+    elements = sorted(list1 + list2, key=lambda x: x['left'])
+    merged = []
+
+    for elem in elements:
+        if not merged:
+            merged.append(elem)
+        else:
+            last = merged[-1]
+            if is_mergeable(last, elem):
+                merged[-1] = combine_elements(last, elem)
+            else:
+                merged.append(elem)
+    return merged
